@@ -33,6 +33,7 @@
   pip:
     name: "{{ unified }}"
   become: true
+  changed_when: false
   when:
     - not ansible_check_mode
     - unified is not variable_empty
