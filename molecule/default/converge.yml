@@ -1,0 +1,52 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+
+  pre_tasks:
+    - name: Setting up test environment.
+      debug:
+        msg:
+          - '==============================================================='
+          - 'Pre tasks'
+          - '==============================================================='
+
+    - name: Ensure Python requirements installed.
+      apt:
+        name:
+          - python
+          - python-pip
+          - python-setuptools
+          - python3-pip
+          - python3-setuptools
+        state: present
+      changed_when: false
+
+    - name: Ensure Pip requirements installed.
+      pip:
+        name:
+          - flake8
+          - requests
+      become: false
+      changed_when: false
+
+  roles:
+    - role: pyp
+      packages_pip:
+        - bottle==0.12.17
+        - carbon
+      configuration:
+        - https://is.gd/vPO3wm
+
+  post_tasks:
+    - name: Run verification tests.
+      debug:
+        msg:
+          - '================================================================'
+          - 'Post tasks'
+          - '================================================================'
+
+    - name: Verify python is installed.
+      package_facts:
+        manager: auto
+      failed_when: "'python' not in ansible_facts.packages"

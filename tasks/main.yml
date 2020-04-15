@@ -1,0 +1,38 @@
+---
+- name: Display Role Details.
+  debug:
+    msg:
+      - '===================================================================='
+      - 'constrict0r.pyp'
+      - 'Wrapper for pip to install packages.'
+      - '===================================================================='
+
+- name: Handle pip packages.
+  debug:
+    msg:
+      - '--------------------------------------------------------------------'
+      - 'Processing pip packages ...'
+      - '--------------------------------------------------------------------'
+  when: unified is not variable_empty
+
+- name: Ensure dependencies are installed.
+  apt:
+    name:
+      - python-pip
+      - python3-pip
+    state: present
+  register: result
+  retries: 2
+  until: result is success
+  become: true
+  when:
+    - not ansible_check_mode
+    - unified is not variable_empty
+
+- name: Install pip packages.
+  pip:
+    name: "{{ unified }}"
+  become: true
+  when:
+    - not ansible_check_mode
+    - unified is not variable_empty

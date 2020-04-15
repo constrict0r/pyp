@@ -1,0 +1,17 @@
+---
+stages:
+  - test
+
+molecule:
+  image: docker:git
+  stage: test
+  services:
+    - docker:dind
+  before_script:
+    - apk update && apk add --no-cache docker
+      python3-dev py3-pip docker gcc git curl build-base
+      autoconf automake py3-cryptography linux-headers
+      musl-dev libffi-dev openssl-dev openssh
+    - pip3 install ansible flake8 molecule[docker]
+  script:
+    - molecule test

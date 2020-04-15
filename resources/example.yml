@@ -1,0 +1,6 @@
+---
+# Example file with packages to install.
+
+packages_pip:
+  - bottle==0.12.17
+  - whisper

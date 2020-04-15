@@ -1,0 +1,29 @@
+@startuml
+'Use plantuml to view this file as an image: http://plantuml.com'
+
+skinparam monochrome true
+
+start
+
+:Apply validations;
+
+if (validations passed?) then (yes)
+
+  :Update APT cache;
+
+  :Set unified = packages_pip + loaded configuration;
+
+  :Ensure dependecies are installed;
+
+  if (unified not empty?) then (yes)
+    :Install pip packages;
+  else (no)
+  endif
+
+else (no)
+  :Show validation errors;
+endif
+
+end
+
+@enduml
