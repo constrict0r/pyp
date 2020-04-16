@@ -32,11 +32,8 @@
 
   roles:
     - role: pyp
-      packages_pip:
-        - bottle==0.12.17
-        - carbon
       configuration:
-        - https://is.gd/vPO3wm
+        - https://is.gd/toSpm8
 
   post_tasks:
     - name: Run verification tests.
