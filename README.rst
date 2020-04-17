@@ -178,7 +178,7 @@ This variable is empty by default.
            - whisper
 
    # To a playbook from terminal.
-   ansible-playbook -i tests/inventory tests/test-playbook.yml -K -e \
+   ansible-playbook -i inventory my-playbook.yml -K -e \
        "{packages_pip: ['bottle==0.12.17', 'whisper']}"
 
 
